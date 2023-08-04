@@ -21,7 +21,7 @@ int printColorMap() {
 int main() {
     int result = printColorMap();
     assert(result == 25);
-    assert(ComputedColorCode(0,0) == 1)
+    assert(ComputedColorCode(0,0) == 1);
     std::cout << "All is well (maybe!)\n";
     return 0;
 }
