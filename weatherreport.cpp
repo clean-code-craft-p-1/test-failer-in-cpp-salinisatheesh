@@ -66,7 +66,9 @@ namespace WeatherSpace
         {
             if (precipitation >= 20 && precipitation < 60)
                 report = "Partly Cloudy";
-            else if (sensor.WindSpeedKMPH() > 50)
+            else if (precipitation >= 60 && precipitation <= 80) // Change this condition
+                report = "Cloudy with light rain";
+            else if (sensor.WindSpeedKMPH() > 50 && precipitation > 80)
                 report = "Alert, Stormy with heavy rain";
         }
         return report;

@@ -3,7 +3,7 @@
 
 int ComputedColorCode(int majorColor, int minorColor)
 {
-    return (majorColor *5 + minorColor);
+    return (majorColor *5 + minorColor + 1);
 }
 
 int printColorMap() {
@@ -12,7 +12,7 @@ int printColorMap() {
     int i = 0, j = 0;
     for(i = 0; i < 5; i++) {
         for(j = 0; j < 5; j++) {
-            std::cout << ComputedColorCode(i,j) << " | " << majorColor[i] << " | " << minorColor[i] << "\n";
+            std::cout << ComputedColorCode(i,j) << "  | " << majorColor[i] << "    | " << minorColor[i] << "\n";
         }
     }
     return i * j;
