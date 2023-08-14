@@ -36,6 +36,26 @@ namespace WeatherSpace
             return 52;
         }
     };
+
+    class HighPrecipitationLowWindSensorStub : public IWeatherSensor {
+    
+        int Humidity() const override {
+            return 85;
+         }
+
+        int Precipitation() const override {
+            return 80; // High precipitation (>60)
+        }
+
+        double TemperatureInC() const override {
+            return 22;
+        }
+
+        int WindSpeedKMPH() const override {
+            return 40; // Low wind speed (<50)
+        }
+    };
+
     string Report(const IWeatherSensor& sensor)
     {
         int precipitation = sensor.Precipitation();
@@ -46,7 +66,9 @@ namespace WeatherSpace
         {
             if (precipitation >= 20 && precipitation < 60)
                 report = "Partly Cloudy";
-            else if (sensor.WindSpeedKMPH() > 50)
+            else if (precipitation >= 60 && precipitation <= 80) // Change this condition
+                report = "Cloudy with light rain";
+            else if (sensor.WindSpeedKMPH() > 50 && precipitation > 80)
                 report = "Alert, Stormy with heavy rain";
         }
         return report;
@@ -62,14 +84,14 @@ namespace WeatherSpace
 
     void TestHighPrecipitation()
     {
-        // This instance of stub needs to be different-
-        // to give high precipitation (>60) and low wind-speed (<50)
-        SensorStub sensor;
 
-        // strengthen the assert to expose the bug
-        // (function returns Sunny day, it should predict rain)
+
+        HighPrecipitationLowWindSensorStub sensor; // Use the new sensor with high precipitation and low wind speed
+
         string report = Report(sensor);
-        assert(report.length() > 0);
+        assert(report.find("rain") != string::npos); // Strengthen the assert to check if the report contains "rain"
+
+
     }
 }
 
